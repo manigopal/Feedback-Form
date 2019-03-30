@@ -726,8 +726,7 @@ label {
     display: none;
 }
 .image-radio-checked {
-    /*border-color: #4783B0;*/
-	/*content: url('sad_color.png');*/
+   
 	max-width: 32px;
 }
 .sad-img.image-radio-checked {

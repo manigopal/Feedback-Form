@@ -1,10 +1,7 @@
 
 <?php
 
-//require_once ('/inc/connect.php');
-
-
-$db = mysqli_connect('localhost', 'root', '', 'phoenix_palladium_feedback');
+$db = mysqli_connect('localhost', 'root', '', 'feedback');
 
 if(isset($_POST['submit']))
 {
@@ -19,8 +16,6 @@ if(isset($_POST['submit']))
  $question04_answer = mysqli_real_escape_string($db, $_POST['question04_answer']);
  $question05 = mysqli_real_escape_string($db, $_POST['question05']);
  $question05_answer = mysqli_real_escape_string($db, $_POST['question05_answer']);
-/*  $question06 = mysqli_real_escape_string($db, $_POST['question06']);
- $question06_answer = mysqli_real_escape_string($db, $_POST['question06_answer']); */
  
  $question01_additional_feedback = mysqli_real_escape_string($db, $_POST['question01_additional_feedback']);
  $question02_additional_feedback = mysqli_real_escape_string($db, $_POST['question02_additional_feedback']);
@@ -42,7 +37,7 @@ if(isset($_POST['submit']))
  
  // sql query for inserting data into database
  
-        $sql_query = "INSERT INTO palladium_visitors_feedback (emp_name,emp_roll,question01,question01_answer,question01_additional_feedback,question02,question02_answer,question02_additional_feedback,
+        $sql_query = "INSERT INTO visitors_feedback (emp_name,emp_roll,question01,question01_answer,question01_additional_feedback,question02,question02_answer,question02_additional_feedback,
 					  question03,question03_answer,question03_additional_feedback,question04,question04_answer,question04_additional_feedback,
 					  question05,question05_answer,question05_additional_feedback,visitor_name,visitor_contact_no,visitor_email,
 					  visitor_profession,visitor_city,visitor_average_income,visitor_age_group,visitor_feedback,date_taken)
@@ -100,7 +95,7 @@ if(isset($_POST['submit']))
 <!-- multistep form -->
 <form id="msform" method="post" action="palladium_web_form.php">
 	
-	<h1> <img src="palladium-logo-old-used.png" alt="Smiley face" height="auto" width="50%"> </h1>
+	<h1> <img src="logo-old-used.png" alt="Smiley face" height="auto" width="50%"> </h1>
 	<p>&nbsp;</p>	
 
   <!-- progressbar -->
@@ -116,16 +111,10 @@ if(isset($_POST['submit']))
 	
 	<?php
 	
-	$select_star_rating_query = "SELECT questions FROM `palladium_questions` where input_mode='Star Rating' AND status='Enable'";
+	$select_star_rating_query = "SELECT questions FROM `questions` where input_mode='Star Rating' AND status='Enable'";
 
 	$result_star_rating = mysqli_query($db, $select_star_rating_query);	
 	
-	/*
-	$status = $_GET['status'];
-
-	$sth = mysqli_query("SELECT * FROM `palladium_questions` where status='Enable'"); */
-
-
 	$rows_star_rating = array();
 	//$arrayKeys = array_keys($rows);
 	while($r = mysqli_fetch_assoc($result_star_rating))
@@ -197,12 +186,9 @@ if(isset($_POST['submit']))
 	
 	<div id="question01_sad_modal_step2_thanks" class="modal">
 		<p> Thanks for your Feedback. </p>
-		<!-- <a href="#" class="btn btn-success btn-sm" rel="modal:close">Cancel</a> -->
+		
 	</div>
 	
-	
-	<!-- Link to open the modal -->
-	<!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
 	
 	<script type="text/javascript">
     $(document).ready(function(){
@@ -274,8 +260,6 @@ if(isset($_POST['submit']))
 	
 	</div>
 
-	<!-- Link to open the modal -->
-	<!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
 	
 	<script type="text/javascript">
     $(document).ready(function(){
@@ -321,9 +305,8 @@ if(isset($_POST['submit']))
 	
 	<div id="question03_additional_feedback_answer"> </div>
 
-	
 	</div> 
-	
+
 	
 	<div id="question03_sad_modal" class="modal">
 		<img class="img-responsive" src="sad_color.png">
@@ -345,8 +328,6 @@ if(isset($_POST['submit']))
 	
 	</div>
 
-	<!-- Link to open the modal -->
-	<!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
 	
 	<script type="text/javascript">
     $(document).ready(function(){
@@ -357,9 +338,7 @@ if(isset($_POST['submit']))
 	});
 	
 	</script>
-	
-	
-	
+	  
 	<div class="form-group">
 	<label>
 		4. <?php echo $rows_star_rating[3]['questions']; ?>
@@ -391,7 +370,6 @@ if(isset($_POST['submit']))
 	</div>
 	
 	<div id="question04_additional_feedback_answer"> </div>
-
 	
 	</div> 
 	
@@ -416,8 +394,6 @@ if(isset($_POST['submit']))
 	
 	</div>
 
-	<!-- Link to open the modal -->
-	<!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
 	
 	<script type="text/javascript">
     $(document).ready(function(){
@@ -486,9 +462,6 @@ if(isset($_POST['submit']))
 	  <a href="#" class="btn btn-success btn-sm" rel="modal:close">Cancel</a>
 	
 	</div>
-
-	<!-- Link to open the modal -->
-	<!-- <p><a href="#ex1" rel="modal:open">Open Modal</a></p> -->
 	
 	<script type="text/javascript">
     $(document).ready(function(){
@@ -505,13 +478,7 @@ if(isset($_POST['submit']))
 	<?php
 	$select_manual_entry_query = "SELECT questions FROM `palladium_questions` where input_mode='Manual Entry' AND status='Enable'";
 
-	$result_manual_entry = mysqli_query($db, $select_manual_entry_query);	
-	
-	/*
-	$status = $_GET['status'];
-
-	$sth = mysqli_query("SELECT * FROM `palladium_questions` where status='Enable'"); */
-
+	$result_manual_entry = mysqli_query($db, $select_manual_entry_query);
 
 	$rows_manual_entry = array();
 	//$arrayKeys = array_keys($rows);
@@ -523,14 +490,7 @@ if(isset($_POST['submit']))
 	
 	?>
 	
-	<div class="form-group hidden">
-	<label>
-		6. <?php echo $rows_manual_entry[0]['questions']; ?>
-		<input type="text" class="form-control hidden" id="email" placeholder="Your Answer" name="question06" 
-		value="<?php echo $rows_manual_entry[0]['questions']; ?>">
-	</label>
-	<input type="text" class="form-control" id="email" placeholder="Your Answer" name="question06_answer">
-	</div>
+	
 	
 	<input type="button" name="previous" class="previous action-button" value="Previous" 
 	onclick="window.location.href='form_page.php'"/>
@@ -576,13 +536,7 @@ if(isset($_POST['submit']))
 
 html {
 	height: 100%;
-	/*Image only BG fallback*/
-	
-	/*background = gradient + image pattern combo*/
-	/*background: 
-		linear-gradient(rgba(196, 102, 0, 0.6), rgba(155, 89, 182, 0.6));*/
-	/*background: linear-gradient(#ec2028,#ec2028);
-	    background: linear-gradient(#ac9863,#ac9863);*/
+
 	    background: linear-gradient(#010000,#000000);
 }
 
@@ -599,7 +553,6 @@ body {
 
 @media(max-width:767px){
 #msform {
-    /*width: 400px;*/
 	width: 98%!important;
 }
 
@@ -1113,10 +1066,6 @@ $(document).ready(function(){
     });
 });
 
-/* function myFunction() {
-  var popup = document.getElementById("myPopup");
-  popup.classList.toggle("show");
-} */
 
 </script>
 
